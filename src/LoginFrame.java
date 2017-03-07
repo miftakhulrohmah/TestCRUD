@@ -1,7 +1,7 @@
 
-import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,10 +39,11 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtnama = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtpass = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        txtpass = new javax.swing.JPasswordField();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -58,20 +59,12 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtnama);
-        txtnama.setBounds(40, 90, 190, 50);
+        txtnama.setBounds(40, 90, 190, 30);
 
         jLabel2.setFont(new java.awt.Font("Tekton Pro Ext", 1, 24)); // NOI18N
         jLabel2.setText("Password");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(70, 170, 160, 40);
-
-        txtpass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtpassActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txtpass);
-        txtpass.setBounds(40, 210, 190, 50);
 
         jButton1.setText("Sign Up");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -80,11 +73,16 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(20, 300, 69, 23);
+        jButton1.setBounds(10, 300, 90, 30);
 
         jButton2.setText("Exit");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2);
-        jButton2.setBounds(110, 300, 51, 23);
+        jButton2.setBounds(110, 300, 60, 30);
 
         jButton3.setText("Sign In");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -93,18 +91,20 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton3);
-        jButton3.setBounds(180, 300, 73, 23);
+        jButton3.setBounds(180, 300, 90, 30);
+        getContentPane().add(txtpass);
+        txtpass.setBounds(40, 210, 190, 30);
 
-        pack();
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\A455L\\Pictures\\grey-background-with-black-triangles_1060-39.jpg")); // NOI18N
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(0, 0, 270, 350);
+
+        setBounds(0, 0, 291, 389);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtnamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnamaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnamaActionPerformed
-
-    private void txtpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpassActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtpassActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -112,8 +112,8 @@ public class LoginFrame extends javax.swing.JFrame {
         String password = txtpass.getText();
         
         try{
-            try(Statement statement = (Statement) file_koneksi.GetConnection()){
-            statement.executeUpdate("insert into tb_akun(username, password) VALUES ('"+username+"','"+password+"');");
+            try(Statement statement = (Statement) file_koneksi.GetConnection().createStatement()){
+            statement.executeUpdate("INSERT INTO `tb_akun`(`username`, `password`) VALUES ('"+username+"','"+password+"');");
             }
         JOptionPane.showMessageDialog(null,"Selamat! Anda berhasil sign up!");
         } catch(Exception t){
@@ -128,8 +128,8 @@ public class LoginFrame extends javax.swing.JFrame {
         PreparedStatement ps;
         
         try{
-            connection = (Connection) DriverManager.getConnection("jdbc:myslq://localhost/db_testkoneksi?zeroDateTimeBehavior=convertToNull", "root", "");
-            ps = (PreparedStatement) connection.prepareStatement("SELECT 'username','password' FROM 'tb_akun' WHERE 'username' = ? AND 'password' = ?");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_testkoneksi?zeroDateTimeBehaviour=convertToNull", "root", "");
+            ps = (PreparedStatement) connection.prepareStatement("SELECT username, password FROM tb_akun WHERE username = ? AND password = ?");
             ps.setString(1, txtnama.getText());
             ps.setString(2, txtpass.getText());
             ResultSet result = ps.executeQuery();
@@ -143,10 +143,16 @@ public class LoginFrame extends javax.swing.JFrame {
             }
             
     }//GEN-LAST:event_jButton3ActionPerformed
-   catch (SQLException ex){
+catch (SQLException ex){
         JOptionPane.showMessageDialog(rootPane, "Gagal!");
     }    
 }
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+   
     /**
      * @param args the command line arguments
      */
@@ -188,7 +194,8 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField txtnama;
-    private javax.swing.JTextField txtpass;
+    private javax.swing.JPasswordField txtpass;
     // End of variables declaration//GEN-END:variables
 }
