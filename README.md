@@ -1,5 +1,11 @@
-# TestCRUD
+# Sign In
+![Screenshot](https://github.com/miftakhulrohmah/TestCRUD/blob/master/signin.PNG) <br>
+![Screenshot](https://github.com/miftakhulrohmah/TestCRUD/blob/master/signin2.PNG)
 
+# Sign Up
+![Screenshot](https://github.com/miftakhulrohmah/TestCRUD/blob/master/signup.PNG)
+
+# TestCRUD
 ![Screenshot](https://github.com/miftakhulrohmah/TestCRUD/blob/master/1.PNG)
 ![Screenshot](https://github.com/miftakhulrohmah/TestCRUD/blob/master/2.PNG)
 ![Screenshot](https://github.com/miftakhulrohmah/TestCRUD/blob/master/3.PNG)
